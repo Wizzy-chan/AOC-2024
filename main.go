@@ -6,17 +6,18 @@ import (
 	"strings"
 	"strconv"
 	"sort"
+	"regexp"
 )
 
 // TODO: Make using each day easier than having to modify fp + func call
 func main() {
-	filepath := "day2.txt"
+	filepath := "day3.txt"
 	contentBytes, err := ioutil.ReadFile(filepath)
 	if err != nil {
 		fmt.Printf("ERROR: Could not read file %s: %s\n", filepath, err) 
 	}
 	content := string(contentBytes)
-	fmt.Println(day2(content))
+	fmt.Println(day3(content))
 }
 
 // There is no math.Abs for ints its kinda fucked up
@@ -78,7 +79,6 @@ func Safe(report []int, part2 bool) bool {
 	if report[0] > report[1] {
 		sign = -1 // actually decreasing
 	}
-
 	for i := 0; i < len(report) - 1; i++ {
 		delta := report[i+1] - report[i]
 		// 1 <= delta * sign <= 3 is valid
@@ -111,7 +111,6 @@ func day2(input string) (int, int) {
 		}
 		reports = append(reports, report)
 	}
-
 	total1, total2 := 0, 0
 	for _, report := range reports {
 		if Safe(report, false) {
@@ -121,6 +120,30 @@ func day2(input string) (int, int) {
 			total2++
 		}
 	}
-	
+	return total1, total2
+}
+
+// Day 3 solution
+func day3(input string) (int, int) {
+	total1 := 0
+	total2 := 0
+	enabled := true
+	exp := regexp.MustCompile(`(mul|do|don't)\((?:([0-9]{1,3}),([0-9]{1,3}))?\)`)
+	matches := exp.FindAllStringSubmatch(input, -1)
+	for _, match := range matches {
+		switch match[1] {
+		case "do":
+			enabled = true
+		case "don't":
+			enabled = false
+		case "mul":
+			n1, _ := strconv.Atoi(match[2])
+			n2, _ := strconv.Atoi(match[3])
+			total1 += n1 * n2
+			if enabled {
+				total2 += n1 * n2
+			}
+		}
+	}
 	return total1, total2
 }
