@@ -8,11 +8,11 @@ import (
 
 // TODO: Make using each day easier than having to modify fp + func call
 func main() {
-	filepath := "day2.txt"
+	filepath := "inputs/day4.txt"
 	contentBytes, err := ioutil.ReadFile(filepath)
 	if err != nil {
 		fmt.Printf("ERROR: Could not read file %s: %s\n", filepath, err) 
 	}
 	content := string(contentBytes)
-	fmt.Println(solutions.Day3(content))
+	fmt.Println(solutions.Day4(content))
 }
