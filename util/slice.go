@@ -18,8 +18,8 @@ func Remove(slice []int, index int) []int {
 }
 
 // Convert a string n1,n2,n3 into a int slice
-func ToIntSlice(str string) []int {
-	strs := strings.Split(str, ",")
+func ToIntSlice(str, delim string) []int {
+	strs := strings.Split(str, delim)
 	res := make([]int, 0)
 	for _, s := range strs {
 		n, _:= strconv.Atoi(s)

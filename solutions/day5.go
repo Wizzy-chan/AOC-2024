@@ -46,7 +46,7 @@ func Day5(input string) (int, int) {
 	total2 := 0
 	for _, line := range strings.Split(updates, "\n") {
 		if line == "" { continue }
-		update := util.ToIntSlice(line)
+		update := util.ToIntSlice(line, ",")
 		if CorrectOrder(update, rules) {
 			total1 += update[(len(update) - 1) / 2]
 		} else {
