@@ -19,3 +19,11 @@ var VEC2_LEFT	 = Vec2{ -1,  0	}
 func (this Vec2) Add(that Vec2) Vec2 {
 	return Vec2{this.X + that.X, this.Y + that.Y}
 }
+
+func (this Vec2) Sub(that Vec2) Vec2 {
+	return Vec2{this.X - that.X, this.Y - that.Y}
+}
+
+func (this Vec2) InBounds(tl, br Vec2) bool {
+	return tl.X <= this.X && tl.Y <= this.Y && this.X < br.X && this.Y < br.Y
+}
